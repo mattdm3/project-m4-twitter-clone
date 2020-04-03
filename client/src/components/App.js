@@ -1,54 +1,57 @@
 import React from 'react';
-
 import { Router } from "@reach/router"
 import Bookmarks from "./Bookmarks"
 import HomeFeed from './HomeFeed';
 import Notifications from './Notifications';
-import TweetDetails from './TweetDetails';
-import Profile from './Profile';
+import Profile from './ProfilePage';
+import UserProfile from "./UserProfilePage"
 import { CurrentUserContext } from './CurrentUserContext';
-import { css } from "@emotion/core";
-import MoonLoader from "react-spinners/MoonLoader";
-import BeatLoader from "react-spinners/BeatLoader";
 import { AllUserContext } from './AllUserContext'
+import TweetDetailsPage from './TweetDetailsPage';
+import Sidebar from "./Sidebar"
+import { ContentContainer, PageContainer } from "./GlobalStyles"
+import { StyledMoonLoader } from "./GlobalStyles"
 
-const styledLoader = css`
-  margin: 0 auto; 
-  margin-top: 25%; 
-  
-`
 
-function App() {
+
+
+function App({ setUpdateFeed }) {
 
   const { currentUser, status } = React.useContext(CurrentUserContext);
   const { feed, feedStatus } = React.useContext(AllUserContext);
 
   return (
     <div>
-      {(status === "loading" && feedStatus === "loading") ?
+
+
+      {(status === "loading" || feedStatus === "loading") ?
         (
-          <MoonLoader
-            css={styledLoader}
-            size={80}
-            color={"#123abc"}
+          <StyledMoonLoader
+
           />
 
         )
         :
         (
-          <Router>
-            <HomeFeed path="/" />
-            <Notifications path="/notifications" />
-            <Bookmarks path="/bookmarks" />
-            <TweetDetails path="/tweet/:tweetId" />
-            <Profile path="/my-profile" />
-          </Router>
+          <PageContainer>
+            <Sidebar />
+            <ContentContainer>
+              <Router>
+                <HomeFeed path="/" />
+                <Notifications path="/notifications" />
+                <Bookmarks path="/bookmarks" />
+                <TweetDetailsPage path="/tweet/:tweetId" />
+                <Profile path="/my-profile" />
+                <UserProfile path="/users/:handle" />
+              </Router>
+            </ContentContainer>
+          </PageContainer>
+
         )
-
-
-
       }
-    </div >
+
+
+    </div>
 
   );
 }

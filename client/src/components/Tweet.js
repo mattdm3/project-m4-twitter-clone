@@ -1,47 +1,82 @@
 import React from "react"
 import styled from "styled-components"
+import { NavLink } from "./NavLink";
 
+import { Link } from "@reach/router"
 import TweetActions from "./TweetActions"
 
-const Tweet = ({ imgSource, tweetContent, displayName, handle, timestamp }) => {
+const Tweet = ({ retweets, likes, retweet, tweetId, profileImg, imgSource, tweetContent, displayName, handle, timestamp }) => {
     return (
+
         <MainContainer>
             {/* Top section of tweet */}
-            <ProfileImg src="http://placecorgi.com/50" alt="" />
-            <ContentContainer>
-                <TweetHeading>
-                    <HandleAndDate>
-                        <h3>{displayName}</h3>
-                        <p>{handle}</p>
-                        <p>- {timestamp}</p>
-                    </HandleAndDate>
-                </TweetHeading>
-                <TweetContent>
-                    <p>{tweetContent}</p>
-                    <img src={imgSource} />
-                </TweetContent>
 
-                <TweetActions />
-            </ContentContainer>
+            <RetweetContainer> {retweet}</RetweetContainer>
+            <PaddingContainer>
+
+
+                <ProfileImg src={profileImg} alt="profile-img" />
+                <ContentContainer>
+                    <TweetHeading>
+                        <HandleAndDate>
+                            <StyledLink to={`/users/${handle}`}><h3>{displayName}</h3></StyledLink>
+                            <p>{handle}</p>
+                            <p>- {timestamp}</p>
+                        </HandleAndDate>
+                    </TweetHeading>
+                    <StyledLink to={`/tweet/${tweetId}`}>
+                        <TweetContent>
+                            <p>{tweetContent}</p>
+                            <img src={imgSource} />
+                        </TweetContent>
+                    </StyledLink>
+
+
+                    <TweetActions
+                        retweets={retweets}
+                        likes={likes}
+
+                    />
+                </ContentContainer>
+            </PaddingContainer>
 
         </MainContainer>
+
     )
 }
 
-const MainContainer = styled.div`
-    padding: 10px; 
-    width: 100%; 
-    display: flex; 
-    align-items: flex-start;
+const StyledLink = styled(NavLink)`
+    text-decoration: none;
+    color:black;
+
+`
+
+export const MainContainer = styled.div`
+
+    width: 900px; 
+    /* width: 100%;  */
+    
     margin: 20px 0; 
+
+    &:first-of-type{
+        border-bottom: 1px solid #eeeeee;
+    }
     
 `
-const TweetHeading = styled.div`
+export const PaddingContainer = styled.div`
+    padding-left: 30px;
+    padding-top: 30px; 
+    padding-bottom: 30px; 
+    display: flex; 
+    align-items: flex-start;
+    
+`
+export const TweetHeading = styled.div`
     display: flex; 
 
 `
 
-const HandleAndDate = styled.div`
+export const HandleAndDate = styled.div`
         display: flex;
         width: 450px; 
         justify-content: space-between;
@@ -51,7 +86,7 @@ const HandleAndDate = styled.div`
         }
     `
 
-const TweetContent = styled.div`
+export const TweetContent = styled.div`
 
 margin-top: 10px; 
 
@@ -65,22 +100,30 @@ width: 100%;
     img {
         border-radius: 10px; 
         margin: 10px 0; 
-        max-width: 550px; 
+        max-width: 650px; 
     }
     
 
 `
 
-const ContentContainer = styled.div`
+export const ContentContainer = styled.div`
     display: flex; 
     flex-direction: column;
     justify-content: space-between;
+    width: 500px; 
     
 `
-const ProfileImg = styled.img`
+export const ProfileImg = styled.img`
     width: 50px;
     border-radius: 50%; 
     margin-right: 10px; 
+`
+const RetweetContainer = styled.div`
+    position: relative; 
+    left: 90px; 
+    top: 15px; 
+    font-size: .9rem;
+    color: #50525A;
 `
 
 export default Tweet; 

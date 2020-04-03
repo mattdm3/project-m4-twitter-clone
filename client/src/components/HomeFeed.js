@@ -1,110 +1,94 @@
 import React from 'react'
-import Sidebar from "./Sidebar"
 import { CurrentUserContext } from './CurrentUserContext'
 import Tweet from "./Tweet"
 import styled from 'styled-components'
-import { css } from "@emotion/core";
-import BeatLoader from "react-spinners/BeatLoader";
-import { ContentContainer, PageContainer } from "./GlobalStyles"
 import { AllUserContext } from './AllUserContext'
+import TweetPoster from "./TweetPoster"
+import { Icon } from 'react-icons-kit';
+import { repeat } from 'react-icons-kit/feather/repeat'
+
+
+const StyledIcon = styled(Icon)`
+    margin-right: 10px; 
+`
+
+
 
 const HomeFeed = () => {
 
-    const { currentUser, status } = React.useContext(CurrentUserContext);
-    const { feed, feedStatus } = React.useContext(AllUserContext);
+    // const { currentUser, status } = React.useContext(CurrentUserContext);
+    const { feed, feedStatus, setUpdateFeed, updateFeed } = React.useContext(AllUserContext);
 
-    // return (
-    //     <PageContainer>
-    //         <Sidebar />
+    const setUpdateFeedTrigger = () => {
+        if (updateFeed === true) {
+            setUpdateFeed(false)
+        } else setUpdateFeed(true)
 
-    //         {(feedStatus === "loading") ?
-
-    //             (
-    //                 <BeatLoader
-    //                     css={styledLoader}
-    //                     size={50}
-    //                     color={"#123abc"}
-    //                 />
-
-    //             )
-
-
-    //             :
-
-    //             (
-    //                 <ContentContainer>
-    //                     {feed.tweetIds.map((tweetId) => {
-    //                         return (
-    //                             <div key={tweetId}>
-    //                                 <Tweet
-    //                                     displayName={feed.tweetsById[tweetId].author.displayName}
-    //                                     handle={feed.tweetsById[tweetId].author.handle}
-    //                                     timestamp={feed.tweetsById[tweetId].timestamp}
-    //                                     tweetContent={feed.tweetsById[tweetId].status}
-    //                                     imgSource={
-    //                                         (feed.tweetsById[tweetId].media.length > 0)
-    //                                             ?
-    //                                             `${feed.tweetsById[tweetId].media[0].url}`
-    //                                             :
-    //                                             ""
-    //                                     }
-    //                                 />
-    //                             </div>
-    //                         )
-
-    //                     })}
-
-
-    //                     {/* <Tweet profileName={}/> */}
-    //                 </ContentContainer>
-
-    //             )
-
-
-    //         }
-
-
-
-    //     </PageContainer>
-    // )
+    }
 
     return (
-        <PageContainer>
-            <Sidebar />
-            <ContentContainer>
-                {feed.tweetIds.map((tweetId) => {
-                    return (
-                        <div key={tweetId}>
-                            <Tweet
-                                displayName={feed.tweetsById[tweetId].author.displayName}
-                                handle={feed.tweetsById[tweetId].author.handle}
-                                timestamp={feed.tweetsById[tweetId].timestamp}
-                                tweetContent={feed.tweetsById[tweetId].status}
-                                imgSource={
-                                    (feed.tweetsById[tweetId].media.length > 0)
-                                        ?
-                                        `${feed.tweetsById[tweetId].media[0].url}`
-                                        :
-                                        ""
-                                }
-                            />
-                        </div>
-                    )
-                })}
-            </ContentContainer>
+        <>
+            <TweetPoster
+                setUpdateFeed={setUpdateFeedTrigger}
+            />
+            {feed.tweetIds.map((tweetId) => {
+                return (
+                    <div key={tweetId}>
+                        <Tweet
+                            retweet={
+                                (feed.tweetsById[tweetId].retweetFrom)
+                                    ?
+                                    (
+                                        <div>
+                                            <StyledIcon icon={repeat} />
+                                            {feed.tweetsById[tweetId].retweetFrom.displayName}
+                                        </div>
+                                    )
+                                    :
+                                    ""
 
+                            }
+                            tweetId={tweetId}
+                            profileImg={feed.tweetsById[tweetId].author.avatarSrc}
+                            displayName={feed.tweetsById[tweetId].author.displayName}
+                            handle={feed.tweetsById[tweetId].author.handle}
+                            timestamp={feed.tweetsById[tweetId].timestamp}
+                            tweetContent={feed.tweetsById[tweetId].status}
+                            retweets={
+                                (feed.tweetsById[tweetId].numRetweets > 0)
+                                    ?
+                                    `${(feed.tweetsById[tweetId].numRetweets)}`
+                                    :
+                                    ""
+
+                            }
+
+
+                            likes={
+                                (feed.tweetsById[tweetId].numLikes > 0)
+                                    ?
+                                    `${(feed.tweetsById[tweetId].numLikes)}`
+                                    :
+                                    ""
+
+
+                            }
+
+                            imgSource={
+                                (feed.tweetsById[tweetId].media.length > 0)
+                                    ?
+                                    `${feed.tweetsById[tweetId].media[0].url}`
+                                    :
+                                    ""
+                            }
+                        />
+                    </div>
                 )
-            }
-        </PageContainer>
+            })}
+        </>
+
     )
-
-};
-
-const styledLoader = css`
-  margin: 0 auto; 
-  margin-top: 20%; 
-  margin-left: 55%; 
-`
+}
 
 
 

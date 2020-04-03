@@ -7,13 +7,24 @@ import { heart } from 'react-icons-kit/feather/heart'
 import { share } from 'react-icons-kit/feather/share'
 
 
-const TweetActions = () => {
+
+
+const TweetActions = ({ retweets, likes }) => {
+
+
     return (
         <StyledActions>
-            <Icon icon={messageCircle} />
-            <Icon icon={repeat} />
-            <Icon icon={heart} />
-            <Icon icon={share} />
+            <StyledIcon icon={messageCircle} />
+            <div>
+                <StyledIcon icon={repeat} />
+                {retweets}
+            </div>
+            <div>
+                <StyledIcon icon={heart} />
+                {likes}
+            </div>
+
+            <StyledIcon icon={share} />
         </StyledActions>
     )
 }
@@ -22,6 +33,18 @@ const StyledActions = styled.div`
     display: flex; 
     justify-content: space-between;
     width: 75%; 
+
+    div {
+        display: flex; 
+        justify-content: space-between;
+        width: 35px; 
+        
+    }
+    
+`
+
+const StyledIcon = styled(Icon)`
+    cursor: pointer;
 `
 
 export default TweetActions; 

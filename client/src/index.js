@@ -9,7 +9,7 @@ import { UserTweetsProvider } from './components/UserTweetsContext';
 
 ReactDOM.render(
 
-  <AllUserProvider>
+  <AllUserProvider >
     <CurrentUserProvider>
 
       <React.StrictMode>

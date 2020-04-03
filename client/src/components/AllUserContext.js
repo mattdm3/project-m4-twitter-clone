@@ -10,6 +10,8 @@ export const AllUserProvider = ({ children }) => {
 
     const [users, setUsers] = React.useState([])
 
+    const [updateFeed, setUpdateFeed] = React.useState(true)
+
 
     React.useEffect(() => {
         fetch(`/api/me/home-feed`, {
@@ -25,10 +27,10 @@ export const AllUserProvider = ({ children }) => {
             .catch(err => {
                 console.log(err);
             });
-    }, [])
+    }, [updateFeed])
 
     return (
-        <AllUserContext.Provider value={{ feed, feedStatus }}>
+        <AllUserContext.Provider value={{ feed, feedStatus, setUpdateFeed, updateFeed }}>
             {children}
         </AllUserContext.Provider>
     )

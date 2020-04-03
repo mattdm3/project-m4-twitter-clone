@@ -17,8 +17,6 @@ const Sidebar = (props) => {
 
     const { currentUser, status } = React.useContext(CurrentUserContext);
 
-
-
     return (
 
 
@@ -44,13 +42,6 @@ const StyledLink = styled(NavLink)`
     color: black; 
 `
 
-// const PageContainer = styled.div`
-//     display: flex; 
-// `
-
-const MainContent = styled.div`
-    
-`
 
 const StyledIcon = styled(Icon)`
     padding-right: 10px; 
@@ -61,18 +52,19 @@ const StyledLogo = styled(CatLogo)`
     width: 50px; 
     position: relative;
     top: 10px; 
-    left: -18px; 
+    left: -5px; 
 `
 
 const SidebarContainer = styled.div`
-    position: fixed; 
+    /* position: fixed;  */
     left: 160px; 
+    margin-left: 160px;
 /*    
     margin-left: 180px;  */
     /* margin-right: 50px;  */
     min-width: 150px; 
     height: 100%; 
-    border-right: 1px solid #EEEEEE;
+    /* border-right: 1px solid #EEEEEE; */
     padding-right: 20px; 
     z-index: 3;
     

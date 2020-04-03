@@ -1,45 +1,48 @@
 import React from "react"
 import styled from "styled-components"
 import COLORS from "../constants"
+import { Icon } from 'react-icons-kit';
+import { calendar } from 'react-icons-kit/feather/calendar'
+import { mapPin } from 'react-icons-kit/feather/mapPin'
 
-
-import TweetActions from "./TweetActions"
-import { ContentContainer } from "./GlobalStyles"
-
-const ProfileInfo = () => {
+const ProfileInfo = ({ description, headerImg, avatarImg, displayName, handle, followInfo, numFollowers, numFollowing, location, joinDate }) => {
     return (
         <ProfileContainer>
-            <img src="https://placeimg.com/900/280/any" alt="" />
+            <img src={headerImg} alt="header-image" />
             <AvatarContainer>
-                <img src="http://placecorgi.com/150" alt="" />
+                <img src={avatarImg} alt="avatar-image" />
                 <StyledButton>Edit Profile</StyledButton>
             </AvatarContainer>
+            {/* STYLE HERE: */}
             <ProfileContent>
+
                 <NameAndHandle>
-                    <h2>Name</h2>
+                    <h2>{displayName}</h2>
                     <ProfileName>
-                        <p>Handle</p> <p>Follows You</p>
+                        <p>@{handle}</p> <span>{followInfo}</span>
                     </ProfileName>
                 </NameAndHandle>
 
                 <ProfileDescription>
                     <div>
-                        Best friens with slkdjfls.
+                        {description}
                     </div>
                 </ProfileDescription>
+
                 <ProfileLocation>
                     <div>
-                        ICON Whitehall
+                        <Icon icon={mapPin} /> {location}
                     </div>
                     <div>
-                        ICON Joined February 2015
+                        <Icon icon={calendar} /> Joined {joinDate}
                     </div>
-
                 </ProfileLocation>
+
                 <FollowData>
-                    <p>1 Following</p>
-                    <p>1 Followers</p>
+                    <p> <span>{numFollowing}</span> Following</p>
+                    <p> <span>{numFollowers}</span>  Followers</p>
                 </FollowData>
+
             </ProfileContent>
             <ProfileButtons>
                 <button>
@@ -60,6 +63,10 @@ const ProfileInfo = () => {
 const ProfileContainer = styled.div`
     display: flex; 
     flex-direction: column;
+
+    img {
+        width: 900px; 
+    }
 `
 
 
@@ -68,14 +75,16 @@ const AvatarContainer = styled.div`
     justify-content: space-between;
     padding: 0 20px; 
     align-items: center;
+    
     img {
         border-radius: 50%; 
         border: 2px solid white; 
-        transform: translateY(-75px)
+        transform: translateY(-75px);
+        width: 150px; 
     }
 `
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
     width: 180px; 
     height: 45px; 
     padding: 10px 15px; 
@@ -84,6 +93,7 @@ const StyledButton = styled.button`
     font-weight: 700;
     font-size: 1.1rem;
     background: ${COLORS.primary};
+    cursor: pointer; 
 `
 
 // MAIN CONTENT CONTAINER 
@@ -92,7 +102,7 @@ const ProfileContent = styled.div`
     flex-direction: column;
     padding: 0 20px; 
     justify-content: space-between;
-    height: 140px; 
+    height: 180px; 
     background: white;
 `
 
@@ -100,30 +110,51 @@ const NameAndHandle = styled.div`
     h2 {
         font-weight: 700;
         margin-bottom: 5px; 
+        font-size: 1.2rem;
+    
     }
 `
 
 const ProfileName = styled.div` 
     display: flex; 
     justify-content: space-between;
-    width: 150px; 
+    width: 200px; 
+    
+    p{
+        color: #50525A;
+    }
+    span {
+        background: grey; 
+        color: black;
+    }
 `
+
+
 const ProfileLocation = styled.div`
     display: flex; 
-    justify-content: space-between;
-    width: 300px; 
+    
+    width: 100%;
+    color: #50525A;
+
+    div{
+        padding-right: 20px; 
+    } 
 `
 
 const ProfileDescription = styled.div`
     display: flex; 
     justify-content: space-between;
-    width: 300px; 
+    width: 500px; 
 `
 
 const FollowData = styled.div`
     display: flex; 
     justify-content: space-between;
     width: 180px; 
+
+    span{
+        font-weight: 700;
+    }
 `
 // PROF BUTTONS
 

@@ -5,14 +5,12 @@ import { ContentContainer, PageContainer } from "./GlobalStyles"
 
 const Bookmarks = () => {
     return (
-        <PageContainer>
-            <Sidebar />
-
-            <ContentContainer>
+        <>
+            
                 Bookmarks
-            </ContentContainer>
+        
 
-        </PageContainer>
+        </>
 
 
     )
