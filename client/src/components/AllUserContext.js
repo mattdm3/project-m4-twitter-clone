@@ -20,7 +20,6 @@ export const AllUserProvider = ({ children }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 setFeed(data);
                 setFeedStatus("loaded");
             })

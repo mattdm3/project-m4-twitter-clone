@@ -8,6 +8,7 @@ import { chevronLeft } from 'react-icons-kit/feather/chevronLeft'
 import { createHistory, Link } from "@reach/router"
 import { StyledLink } from "./StyledLink"
 import { StyledPulseLoader } from "./GlobalStyles"
+import { AllUserContext } from "./AllUserContext"
 
 
 // listen to the browser history
@@ -17,6 +18,9 @@ const TweetDetailsPage = ({ tweetId }) => {
 
     const [thisTweet, setThisTweet] = React.useState(null);
 
+    const [triggerFetch, setTriggerFetch] = React.useState(false);
+
+
     React.useEffect(() => {
         fetch(`/api/tweet/${tweetId}`, {
             "method": "GET",
@@ -24,15 +28,13 @@ const TweetDetailsPage = ({ tweetId }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 setThisTweet(data);
+                console.log(data)
             })
 
-
             .catch(err => {
-                console.log(err);
             });
-    }, [tweetId])
+    }, [tweetId, triggerFetch])
 
     return (
         (thisTweet === null)
@@ -46,6 +48,10 @@ const TweetDetailsPage = ({ tweetId }) => {
                         <button onClick={() => window.history.back()}> <Icon icon={chevronLeft} />Back</button>
                     </StyledBack>
                     <SingleTweet
+                        isRetweeted={thisTweet.tweet.isRetweeted}
+                        triggerFetch={()=> triggerFetch ? setTriggerFetch(false) : setTriggerFetch(true)}
+                        isLiked={thisTweet.tweet.isLiked}
+                        tweetId={thisTweet.tweet.id}
                         profileImg={thisTweet.tweet.author.avatarSrc}
                         imgSource={
 

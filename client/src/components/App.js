@@ -3,8 +3,8 @@ import { Router } from "@reach/router"
 import Bookmarks from "./Bookmarks"
 import HomeFeed from './HomeFeed';
 import Notifications from './Notifications';
-import Profile from './ProfilePage';
-import UserProfile from "./UserProfilePage"
+import ProfilePage from './ProfilePage';
+import UserProfilePage from "./UserProfilePage"
 import { CurrentUserContext } from './CurrentUserContext';
 import { AllUserContext } from './AllUserContext'
 import TweetDetailsPage from './TweetDetailsPage';
@@ -41,8 +41,8 @@ function App({ setUpdateFeed }) {
                 <Notifications path="/notifications" />
                 <Bookmarks path="/bookmarks" />
                 <TweetDetailsPage path="/tweet/:tweetId" />
-                <Profile path="/my-profile" />
-                <UserProfile path="/users/:handle" />
+                <ProfilePage path="/my-profile" />
+                <UserProfilePage path="/users/:handle" />
               </Router>
             </ContentContainer>
           </PageContainer>

@@ -19,10 +19,16 @@ const HomeFeed = () => {
     // const { currentUser, status } = React.useContext(CurrentUserContext);
     const { feed, feedStatus, setUpdateFeed, updateFeed } = React.useContext(AllUserContext);
 
+    const [likeAnimation, setLikeAnimation] = React.useState(false);
+
+
+
     const setUpdateFeedTrigger = () => {
         if (updateFeed === true) {
             setUpdateFeed(false)
-        } else setUpdateFeed(true)
+        } else setUpdateFeed(true);
+
+
 
     }
 
@@ -35,6 +41,10 @@ const HomeFeed = () => {
                 return (
                     <div key={tweetId}>
                         <Tweet
+                            isRetweeted={feed.tweetsById[tweetId].isRetweeted}
+                            triggerFetch={setUpdateFeedTrigger}
+                            isLiked={feed.tweetsById[tweetId].isLiked}
+
                             retweet={
                                 (feed.tweetsById[tweetId].retweetFrom)
                                     ?
@@ -52,6 +62,9 @@ const HomeFeed = () => {
                             profileImg={feed.tweetsById[tweetId].author.avatarSrc}
                             displayName={feed.tweetsById[tweetId].author.displayName}
                             handle={feed.tweetsById[tweetId].author.handle}
+                            /* handleLike={handleLike} */
+                            /* likeAnimation={likeAnimation} */
+
                             timestamp={feed.tweetsById[tweetId].timestamp}
                             tweetContent={feed.tweetsById[tweetId].status}
                             retweets={

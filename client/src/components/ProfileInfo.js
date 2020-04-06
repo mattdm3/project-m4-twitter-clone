@@ -19,7 +19,8 @@ const ProfileInfo = ({ description, headerImg, avatarImg, displayName, handle, f
                 <NameAndHandle>
                     <h2>{displayName}</h2>
                     <ProfileName>
-                        <p>@{handle}</p> <span>{followInfo}</span>
+                        <p>@{handle}</p>
+                        {/* <span>{followInfo}</span> */}
                     </ProfileName>
                 </NameAndHandle>
 
@@ -118,14 +119,19 @@ const NameAndHandle = styled.div`
 const ProfileName = styled.div` 
     display: flex; 
     justify-content: space-between;
-    width: 200px; 
+    align-items: center;
+    width: 180px; 
     
     p{
         color: #50525A;
     }
     span {
-        background: grey; 
+        background: #E8E9F0; 
         color: black;
+        padding: 5px 8px; 
+        line-height: 1;
+        border-radius: 7px; 
+        font-size: .8rem;
     }
 `
 

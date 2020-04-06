@@ -5,7 +5,7 @@ import { NavLink } from "./NavLink";
 import { Link } from "@reach/router"
 import TweetActions from "./TweetActions"
 
-const Tweet = ({ retweets, likes, retweet, tweetId, profileImg, imgSource, tweetContent, displayName, handle, timestamp }) => {
+const Tweet = ({  isRetweeted, triggerFetch, isLiked, retweets, likes, retweet, tweetId, profileImg, imgSource, tweetContent, displayName, handle, timestamp }) => {
     return (
 
         <MainContainer>
@@ -30,12 +30,14 @@ const Tweet = ({ retweets, likes, retweet, tweetId, profileImg, imgSource, tweet
                             <img src={imgSource} />
                         </TweetContent>
                     </StyledLink>
-
-
                     <TweetActions
                         retweets={retweets}
                         likes={likes}
-
+                        /* handleLike={handleLike} */
+                        tweetId={tweetId}
+                        isLiked={isLiked}
+                        triggerFetch={triggerFetch}
+                        isRetweeted={isRetweeted}
                     />
                 </ContentContainer>
             </PaddingContainer>

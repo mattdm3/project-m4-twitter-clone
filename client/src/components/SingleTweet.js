@@ -28,11 +28,14 @@ export const TweetHeading = styled.div`
 
 `
 export const NameAndHandle = styled.div`
-         display: flex;
+         /* display: flex; */
          width: 100%; 
         h3{
             font-weight: 700;
 
+        }
+        p{ 
+          color: #50525A; 
         }
     `
 
@@ -69,7 +72,9 @@ export const ProfileImg = styled.img`
 `
 
 
-const SingleTweet = ({ likes, retweets, profileImg, imgSource, tweetContent, displayName, handle, timestamp }) => {
+const SingleTweet = ({ isRetweeted, triggerFetch, isLiked, handleLike, likeAnimation, tweetId, likes, retweets, profileImg, imgSource, tweetContent, displayName, handle, timestamp }) => {
+
+
 
     return (
         <MainContainer>
@@ -85,7 +90,7 @@ const SingleTweet = ({ likes, retweets, profileImg, imgSource, tweetContent, dis
                             <ProfileImg src={profileImg} alt="profile-img" />
                             <NameAndHandle>
                                 <h3>{displayName}</h3>
-                                <p>{handle}</p>
+                                <p>@{handle}</p>
                             </NameAndHandle>
                         </HeadingContainer>
                     </StyledLink>
@@ -98,6 +103,13 @@ const SingleTweet = ({ likes, retweets, profileImg, imgSource, tweetContent, dis
                     <TweetActions
                         retweets={retweets}
                         likes={likes}
+                        handleLike={handleLike}
+                        likeAnimation={likeAnimation}
+                        tweetId={tweetId}
+                        isLiked={isLiked}
+                        triggerFetch={triggerFetch}
+                        isRetweeted={isRetweeted}
+
 
                     />
                 </ContentContainer>

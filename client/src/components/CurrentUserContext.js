@@ -24,10 +24,7 @@ export const CurrentUserProvider = ({ children }) => {
             .then(data => {
                 setCurrentUser(data);
                 setStatus("idle");
-                console.log(data);
             })
-
-
             .catch(err => {
                 console.log(err);
             });

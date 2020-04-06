@@ -10,8 +10,9 @@ import { StyledMoonLoader } from "./GlobalStyles"
 const Profile = () => {
 
     const { currentUser, status } = React.useContext(CurrentUserContext);
-    const { feed, feedStatus } = React.useContext(AllUserContext);
     const [thisUserTweets, setThisUserTweets] = React.useState(null);
+
+    const [triggerFetch, setTriggerFetch] = React.useState("idle")
 
     React.useEffect(() => {
         fetch(`/api/${currentUser.profile.handle}/feed`, {
@@ -20,13 +21,13 @@ const Profile = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 setThisUserTweets(data);
+                console.log(data)
             })
             .catch(err => {
                 console.log(err);
             });
-    }, [])
+    }, [triggerFetch])
 
     return (
         <>
@@ -52,6 +53,15 @@ const Profile = () => {
                             return (
                                 <div key={tweetId}>
                                     <Tweet
+                                    triggerFetch={()=> (triggerFetch) ? setTriggerFetch(false) : setTriggerFetch(true)}
+                                    isLiked={thisUserTweets.tweetsById[tweetId].isLiked}
+                                        likes={
+                                            (thisUserTweets.tweetsById[tweetId].numLikes > 0)
+                                            ? 
+                                            `${thisUserTweets.tweetsById[tweetId].numLikes}`
+                                            : 
+                                            ""
+                                        }
                                         tweetId={tweetId}
                                         profileImg={thisUserTweets.tweetsById[tweetId].author.avatarSrc}
                                         displayName={thisUserTweets.tweetsById[tweetId].author.displayName}
