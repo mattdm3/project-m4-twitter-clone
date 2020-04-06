@@ -27,6 +27,9 @@ export const CurrentUserProvider = ({ children }) => {
             })
             .catch(err => {
                 console.log(err);
+                if(err){
+                    window.location.href = "/error"
+                }
             });
     }, [])
 

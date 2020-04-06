@@ -6,6 +6,7 @@ import Tweet from './Tweet'
 import { user } from "react-icons-kit/feather/user";
 import styled from "styled-components";
 import { StyledPulseLoader } from "./GlobalStyles"
+import {format} from 'date-fns'
 
 const UserProfile = ({ handle }) => {
 
@@ -29,6 +30,9 @@ const UserProfile = ({ handle }) => {
 
             .catch(err => {
                 console.log(err);
+                if(err){
+                    window.location.href = "/error"
+                }
             });
     }, [handle, triggerFetch])
 
@@ -73,7 +77,7 @@ const UserProfile = ({ handle }) => {
                             numFollowers={userProfile.profile.numFollowers}
                             numFollowing={userProfile.profile.numFollowing}
                             location={userProfile.profile.location}
-                            joinDate={userProfile.profile.joined}
+                            joinDate={format(new Date(userProfile.profile.joined), "PPP")}
 
                             followInfo={
 
@@ -128,7 +132,7 @@ const UserProfile = ({ handle }) => {
                                         profileImg={userTweets.tweetsById[tweetId].author.avatarSrc}
                                         displayName={userTweets.tweetsById[tweetId].author.displayName}
                                         handle={userTweets.tweetsById[tweetId].author.handle}
-                                        timestamp={userTweets.tweetsById[tweetId].timestamp}
+                                        timestamp={format(new Date(userTweets.tweetsById[tweetId].timestamp), "LLL " + "do")}
                                         tweetContent={userTweets.tweetsById[tweetId].status}
                                         imgSource={
                                             (userTweets.tweetsById[tweetId].media.length > 0)

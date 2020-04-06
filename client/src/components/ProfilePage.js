@@ -3,7 +3,7 @@ import { CurrentUserContext } from './CurrentUserContext'
 import ProfileInfo from "./ProfileInfo"
 import Tweet from "./Tweet"
 import { AllUserContext } from "./AllUserContext"
-
+import {format} from "date-fns"
 import { StyledMoonLoader } from "./GlobalStyles"
 
 
@@ -26,6 +26,9 @@ const Profile = () => {
             })
             .catch(err => {
                 console.log(err);
+                if(err){
+                    window.location.href = "/error"
+                }
             });
     }, [triggerFetch])
 
@@ -41,7 +44,7 @@ const Profile = () => {
                 numFollowers={currentUser.profile.numFollowers}
                 numFollowing={currentUser.profile.numFollowing}
                 location={currentUser.profile.location}
-                joinDate={currentUser.profile.joined}
+                joinDate={format(new Date(currentUser.profile.joined), "PPP")}
             />
             {
                 (thisUserTweets === null)
@@ -66,7 +69,7 @@ const Profile = () => {
                                         profileImg={thisUserTweets.tweetsById[tweetId].author.avatarSrc}
                                         displayName={thisUserTweets.tweetsById[tweetId].author.displayName}
                                         handle={thisUserTweets.tweetsById[tweetId].author.handle}
-                                        timestamp={thisUserTweets.tweetsById[tweetId].timestamp}
+                                        timestamp={format(new Date(thisUserTweets.tweetsById[tweetId].timestamp), "LLL " + "do")}
                                         tweetContent={thisUserTweets.tweetsById[tweetId].status}
                                         imgSource={
                                             (thisUserTweets.tweetsById[tweetId].media.length > 0)

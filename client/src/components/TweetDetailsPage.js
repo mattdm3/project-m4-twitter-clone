@@ -9,7 +9,7 @@ import { createHistory, Link } from "@reach/router"
 import { StyledLink } from "./StyledLink"
 import { StyledPulseLoader } from "./GlobalStyles"
 import { AllUserContext } from "./AllUserContext"
-
+import { format } from 'date-fns'
 
 // listen to the browser history
 
@@ -33,6 +33,10 @@ const TweetDetailsPage = ({ tweetId }) => {
             })
 
             .catch(err => {
+                console.log(err); 
+                if(err){
+                    window.location.href = "/error"
+                }
             });
     }, [tweetId, triggerFetch])
 
@@ -64,7 +68,7 @@ const TweetDetailsPage = ({ tweetId }) => {
                         tweetContent={thisTweet.tweet.status}
                         displayName={thisTweet.tweet.author.displayName}
                         handle={thisTweet.tweet.author.handle}
-                        timestamp={thisTweet.tweet.timestamp}
+                        timestamp={format(new Date(thisTweet.tweet.timestamp), "p - " + "PPP " )}
                         retweets={
                             (thisTweet.tweet.numRetweets > 0)
                                 ?

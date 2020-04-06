@@ -5,7 +5,12 @@ import { NavLink } from "./NavLink";
 import { Link } from "@reach/router"
 import TweetActions from "./TweetActions"
 
+
 const Tweet = ({  isRetweeted, triggerFetch, isLiked, retweets, likes, retweet, tweetId, profileImg, imgSource, tweetContent, displayName, handle, timestamp }) => {
+
+
+
+
     return (
 
         <MainContainer>
@@ -80,11 +85,15 @@ export const TweetHeading = styled.div`
 
 export const HandleAndDate = styled.div`
         display: flex;
-        width: 450px; 
-        justify-content: space-between;
+        width: 100%; 
         h3{
             font-weight: 700;
+            padding-right: 10px; 
 
+        }
+        p{
+            padding-right: 10px; 
+            color: #808080;
         }
     `
 

@@ -3,6 +3,7 @@ import styled from "styled-components"
 import TweetActions from "./TweetActions"
 import { StyledLink } from "./StyledLink"
 
+
 export const MainContainer = styled.div`
     width: 900px; 
     height: 100vh;     

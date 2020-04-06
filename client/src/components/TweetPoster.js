@@ -16,12 +16,23 @@ const TweetPoster = () => {
     const [tweetText, setTweetText] = React.useState("");
     const [tweetStatus, setTweetStatus] = React.useState("idle");
 
+    const [placeHolder, setPlaceHolder] = React.useState("What's Happening?")
 
 
     const handleChange = (e) => {
         setCounter(280 - e.target.value.length);
         setTweetText(e.target.value);
     }
+
+    const checkInput = () => {
+        if(tweetText.length > 0 && tweetText.length <  280) {
+            handleTweetSubmit(); 
+            setPlaceHolder("What's Happening?")
+        } else {
+            setTweetStatus("too-long");
+        }
+    }
+
 
     const setUpdateFeedTrigger = () => {
         setTweetText("");
@@ -36,15 +47,20 @@ const TweetPoster = () => {
     }
 
     const handleTweetSubmit = () => {
-        setTweetStatus("loading");
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ status: `${tweetText}` })
-        };
-        fetch('/api/tweet', requestOptions)
-            .then(response => response.json())
-            .then(() => setUpdateFeedTrigger())
+       
+       
+            setTweetStatus("loading");
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status: `${tweetText}` })
+            };
+            fetch('/api/tweet', requestOptions)
+                .then(response => response.json())
+                .then(() => setUpdateFeedTrigger())
+        
+        
+        
 
     }
 
@@ -56,20 +72,26 @@ const TweetPoster = () => {
             <h2>Home</h2>
             <InputContainer>
                 <Avatar src={currentUser.profile.avatarSrc} alt="avatar" />
-                <StyledInput value={tweetText} placeholder="What's Happening?" onChange={handleChange} type="text" />
+                <StyledInput value={tweetText} placeholder={placeHolder} onChange={handleChange} type="text" />
             </InputContainer>
 
             <ButtonContainer>
-                <p>{counter}</p>
-                <StyledButton onClick={handleTweetSubmit}>
+                <p style={counter < 0 ? {color: "red"} : {color: "black"}}>{counter}</p>
+                <StyledButton onClick={checkInput}>
                     {
                         (tweetStatus == "loading")
                             ?
                             (<StyledBeatLoader />)
                             :
-                            ("Meow")
-
-                    }
+                            (
+                                
+                                (tweetStatus == "too-long")
+                                    ?
+                                    ("Tweet too long!")
+                                    :
+                                    ("Meow")
+                            )
+                    }              
                 </StyledButton>
             </ButtonContainer>
 

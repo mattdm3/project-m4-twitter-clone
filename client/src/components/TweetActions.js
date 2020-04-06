@@ -73,6 +73,9 @@ const TweetActions = ({ triggerFetch, isLiked, tweetId, retweets, likes, isRetwe
                 })
                 .catch(err => {
                     console.log(err);
+                    if(err){
+                        window.location.href = "/error"
+                    }
                 });
         }
 
@@ -97,7 +100,7 @@ const TweetActions = ({ triggerFetch, isLiked, tweetId, retweets, likes, isRetwe
                 })
             })
                 .then(response => {
-                    // setLikeAnimation(false);
+                    setRetweetAnimation(false);
                     reRenderFeed();
                     
                     
@@ -117,7 +120,7 @@ const TweetActions = ({ triggerFetch, isLiked, tweetId, retweets, likes, isRetwe
             })
                 .then(response => {
                     reRenderFeed();
-                    // setLikeAnimation(true);
+                    setRetweetAnimation(true);
                 })
                 .catch(err => {
                     console.log(err);
@@ -131,9 +134,9 @@ const TweetActions = ({ triggerFetch, isLiked, tweetId, retweets, likes, isRetwe
     return (
         <StyledActions>
             <StyledIcon icon={messageCircle} />
-            <div>
-                <StyledIcon icon={repeat} />
-                {retweets}
+            <div onClick={handleRetweet} style={retweetAnimation || isRetweeted ? {color: "#479489", position: "relative"} : {color: "black", position: "relative"}}>
+                <StyledIcon  icon={repeat} />
+                <p  style={{ position: "absolute", left: "35px", top: "10px" }}>{retweets}</p>
             </div>
             <div style={{ position: "relative", cursor: "pointer" }}>
 
@@ -141,20 +144,18 @@ const TweetActions = ({ triggerFetch, isLiked, tweetId, retweets, likes, isRetwe
                     { 
                         likeAnimation && isLiked ?
                         (          
-                                 <SpringyHeart>
-                                     <StyledHeart style={{fill: "red", stroke: "red"}} 
+                            <SpringyHeart>
+                                <StyledHeart style={{fill: "red", stroke: "red"}} 
                                         />
-                                  </SpringyHeart>
-                                           
+                            </SpringyHeart>         
                         )
                         :
                         (
-                              
                             <StyledHeart  style={isLiked ? {fill:"red", stroke: "red"} : {fill:"white"}} /> 
                         )
 
-
                     }        
+                    
                 </Foreground>
 
                 <Background>
@@ -270,6 +271,7 @@ const StyledIcon = styled(Icon)`
 
 const SpringyHeart = styled.div`
     animation: ${scaleHeart} 800ms ease-in-out forwards;
+    
 `
 
 
@@ -279,8 +281,9 @@ const StyledHeart = styled(FiHeart)`
     padding: 9px; 
     border-radius: 50%; 
     /* z-index: 4;  */
-    color: grey; 
+    color: black; 
     transition-duration: 300ms; 
+    z-index: 2; 
 
 
     &:hover {

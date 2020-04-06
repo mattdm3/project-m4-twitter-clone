@@ -25,6 +25,9 @@ export const AllUserProvider = ({ children }) => {
             })
             .catch(err => {
                 console.log(err);
+                if(err){
+                    window.location.href = "/error"
+                }
             });
     }, [updateFeed])
 

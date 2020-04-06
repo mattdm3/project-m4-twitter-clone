@@ -6,7 +6,7 @@ import { AllUserContext } from './AllUserContext'
 import TweetPoster from "./TweetPoster"
 import { Icon } from 'react-icons-kit';
 import { repeat } from 'react-icons-kit/feather/repeat'
-
+import {format} from 'date-fns'
 
 const StyledIcon = styled(Icon)`
     margin-right: 10px; 
@@ -20,6 +20,8 @@ const HomeFeed = () => {
     const { feed, feedStatus, setUpdateFeed, updateFeed } = React.useContext(AllUserContext);
 
     const [likeAnimation, setLikeAnimation] = React.useState(false);
+
+    console.log(format(new Date(), "LLLL"))
 
 
 
@@ -62,10 +64,9 @@ const HomeFeed = () => {
                             profileImg={feed.tweetsById[tweetId].author.avatarSrc}
                             displayName={feed.tweetsById[tweetId].author.displayName}
                             handle={feed.tweetsById[tweetId].author.handle}
-                            /* handleLike={handleLike} */
-                            /* likeAnimation={likeAnimation} */
+                
 
-                            timestamp={feed.tweetsById[tweetId].timestamp}
+                            timestamp={format(new Date(feed.tweetsById[tweetId].timestamp), "LLL " + "do")}
                             tweetContent={feed.tweetsById[tweetId].status}
                             retweets={
                                 (feed.tweetsById[tweetId].numRetweets > 0)

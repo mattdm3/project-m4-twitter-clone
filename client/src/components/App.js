@@ -11,7 +11,7 @@ import TweetDetailsPage from './TweetDetailsPage';
 import Sidebar from "./Sidebar"
 import { ContentContainer, PageContainer } from "./GlobalStyles"
 import { StyledMoonLoader } from "./GlobalStyles"
-
+import Error from "./Error"
 
 
 
@@ -43,6 +43,7 @@ function App({ setUpdateFeed }) {
                 <TweetDetailsPage path="/tweet/:tweetId" />
                 <ProfilePage path="/my-profile" />
                 <UserProfilePage path="/users/:handle" />
+                <Error default />
               </Router>
             </ContentContainer>
           </PageContainer>
