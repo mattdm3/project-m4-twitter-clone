@@ -234,6 +234,7 @@ You'll get an error if you try to like a tweet that is already liked, or unlike 
 
 ### PUT /api/tweet/:tweetId/retweet
 
+
 A "retweet" takes someone else's tweet and copies it to your own timeline. It's a way of sharing a piece of content with your followers.
 
 It works very similar to liking a tweet; you need to make a PUT with a JSON body that indicates whether you intend to retweet, or remove an existing retweet:
