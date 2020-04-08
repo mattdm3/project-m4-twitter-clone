@@ -22,10 +22,11 @@ export const AllUserProvider = ({ children }) => {
             .then(data => {
                 setFeed(data);
                 setFeedStatus("loaded");
+                // console.log(data)
             })
             .catch(err => {
                 console.log(err);
-                if(err){
+                if (err) {
                     window.location.href = "/error"
                 }
             });

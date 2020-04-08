@@ -3,7 +3,7 @@ import { CurrentUserContext } from './CurrentUserContext'
 import ProfileInfo from "./ProfileInfo"
 import Tweet from "./Tweet"
 import { AllUserContext } from "./AllUserContext"
-import {format} from "date-fns"
+import { format } from "date-fns"
 import { StyledMoonLoader } from "./GlobalStyles"
 
 
@@ -22,13 +22,13 @@ const Profile = () => {
             .then(res => res.json())
             .then(data => {
                 setThisUserTweets(data);
-                console.log(data)
+                // console.log(data)
             })
             .catch(err => {
                 console.log(err);
-                if(err){
-                    window.location.href = "/error"
-                }
+                // if (err) {
+                //     window.location.href = "/error"
+                // }
             });
     }, [triggerFetch])
 
@@ -56,14 +56,14 @@ const Profile = () => {
                             return (
                                 <div key={tweetId}>
                                     <Tweet
-                                    triggerFetch={()=> (triggerFetch) ? setTriggerFetch(false) : setTriggerFetch(true)}
-                                    isLiked={thisUserTweets.tweetsById[tweetId].isLiked}
+                                        triggerFetch={() => (triggerFetch) ? setTriggerFetch(false) : setTriggerFetch(true)}
+                                        isLiked={thisUserTweets.tweetsById[tweetId].isLiked}
                                         likes={
                                             (thisUserTweets.tweetsById[tweetId].numLikes > 0)
-                                            ? 
-                                            `${thisUserTweets.tweetsById[tweetId].numLikes}`
-                                            : 
-                                            ""
+                                                ?
+                                                `${thisUserTweets.tweetsById[tweetId].numLikes}`
+                                                :
+                                                ""
                                         }
                                         tweetId={tweetId}
                                         profileImg={thisUserTweets.tweetsById[tweetId].author.avatarSrc}

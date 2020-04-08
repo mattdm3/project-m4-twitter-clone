@@ -6,11 +6,11 @@ import Tweet from './Tweet'
 import { user } from "react-icons-kit/feather/user";
 import styled from "styled-components";
 import { StyledPulseLoader } from "./GlobalStyles"
-import {format} from 'date-fns'
+import { format } from 'date-fns'
 
 const UserProfile = ({ handle }) => {
 
-    const {feed, feedStatus } = React.useContext(AllUserContext);
+    const { feed, feedStatus } = React.useContext(AllUserContext);
     const [userTweets, setUserTweets] = React.useState(null);
     const [userProfile, setUserProfile] = React.useState(null);
 
@@ -23,14 +23,14 @@ const UserProfile = ({ handle }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 setUserTweets(data);
             })
 
 
             .catch(err => {
                 console.log(err);
-                if(err){
+                if (err) {
                     window.location.href = "/error"
                 }
             });
@@ -46,14 +46,14 @@ const UserProfile = ({ handle }) => {
             .then(res => res.json())
             .then(data => {
                 setUserProfile(data);
-                
-        
+
+
             })
 
             .catch(err => {
                 console.log(err)
             })
-        
+
 
 
     }, [handle])
@@ -111,23 +111,32 @@ const UserProfile = ({ handle }) => {
                     :
                     (
                         userTweets.tweetIds.map((tweetId) => {
-                            
-                           
+
+
                             return (
 
                                 <div key={tweetId}>
                                     <Tweet
-                                    triggerFetch={()=> triggerFetch ? setTriggerFetch(false) : setTriggerFetch(true)}
-                                    likes={
+                                        retweets={
+                                            (userTweets.tweetsById[tweetId].numRetweets > 0)
+                                                ?
+                                                `${(userTweets.tweetsById[tweetId].numRetweets)}`
+                                                :
+                                                ""
+
+                                        }
+                                        isRetweeted={userTweets.tweetsById[tweetId].isRetweeted}
+                                        triggerFetch={() => triggerFetch ? setTriggerFetch(false) : setTriggerFetch(true)}
+                                        likes={
                                             (userTweets.tweetsById[tweetId].numLikes > 0)
-                                            ? 
-                                            `${userTweets.tweetsById[tweetId].numLikes}`
-                                            : 
-                                            ""
+                                                ?
+                                                `${userTweets.tweetsById[tweetId].numLikes}`
+                                                :
+                                                ""
                                         }
 
                                         isLiked={userTweets.tweetsById[tweetId].isLiked}
-                                      
+
                                         tweetId={tweetId}
                                         profileImg={userTweets.tweetsById[tweetId].author.avatarSrc}
                                         displayName={userTweets.tweetsById[tweetId].author.displayName}
@@ -142,7 +151,7 @@ const UserProfile = ({ handle }) => {
                                                 ""
                                         }
                                     />
-                                    </div>
+                                </div>
                             )
                         })
                     )

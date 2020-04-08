@@ -6,7 +6,7 @@ import { Link } from "@reach/router"
 import TweetActions from "./TweetActions"
 
 
-const Tweet = ({  isRetweeted, triggerFetch, isLiked, retweets, likes, retweet, tweetId, profileImg, imgSource, tweetContent, displayName, handle, timestamp }) => {
+const Tweet = ({ isRetweeted, triggerFetch, isLiked, retweets, likes, retweet, tweetId, profileImg, imgSource, tweetContent, displayName, handle, timestamp }) => {
 
 
 

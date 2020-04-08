@@ -18,19 +18,19 @@ const TweetActions = ({ triggerFetch, isLiked, tweetId, retweets, likes, isRetwe
 
     const [retweetAnimation, setRetweetAnimation] = React.useState(false);
 
-    const {setUpdateFeed, updateFeed } = React.useContext(AllUserContext);
+    // const { setUpdateFeed, updateFeed } = React.useContext(AllUserContext);
 
 
 
-    const reRenderFeed = () => {
+    // const reRenderFeed = () => {
 
-        if (updateFeed) {
-            setUpdateFeed(false)
-        } else setUpdateFeed(true);
+    //     if (updateFeed) {
+    //         setUpdateFeed(false)
+    //     } else setUpdateFeed(true);
 
-        // (likeAnimation ? setLikeAnimation(false) : setLikeAnimation(true));
+    //     // (likeAnimation ? setLikeAnimation(false) : setLikeAnimation(true));
 
-    }
+    // }
 
 
     const handleLike = (e) => {
@@ -50,9 +50,9 @@ const TweetActions = ({ triggerFetch, isLiked, tweetId, retweets, likes, isRetwe
             })
                 .then(response => {
                     setLikeAnimation(false);
-                    reRenderFeed();
-                    
-                    
+                    // reRenderFeed();
+
+
                 })
                 .catch(err => {
                     console.log(err);
@@ -68,12 +68,12 @@ const TweetActions = ({ triggerFetch, isLiked, tweetId, retweets, likes, isRetwe
                 })
             })
                 .then(response => {
-                    reRenderFeed();
+                    // reRenderFeed();
                     setLikeAnimation(true);
                 })
                 .catch(err => {
                     console.log(err);
-                    if(err){
+                    if (err) {
                         window.location.href = "/error"
                     }
                 });
@@ -101,9 +101,9 @@ const TweetActions = ({ triggerFetch, isLiked, tweetId, retweets, likes, isRetwe
             })
                 .then(response => {
                     setRetweetAnimation(false);
-                    reRenderFeed();
-                    
-                    
+                    // reRenderFeed();
+
+
                 })
                 .catch(err => {
                     console.log(err);
@@ -119,7 +119,7 @@ const TweetActions = ({ triggerFetch, isLiked, tweetId, retweets, likes, isRetwe
                 })
             })
                 .then(response => {
-                    reRenderFeed();
+                    // reRenderFeed();
                     setRetweetAnimation(true);
                 })
                 .catch(err => {
@@ -134,34 +134,34 @@ const TweetActions = ({ triggerFetch, isLiked, tweetId, retweets, likes, isRetwe
     return (
         <StyledActions>
             <StyledIcon icon={messageCircle} />
-            <div onClick={handleRetweet} style={retweetAnimation || isRetweeted ? {color: "#479489", position: "relative"} : {color: "black", position: "relative"}}>
-                <StyledIcon  icon={repeat} />
-                <p  style={{ position: "absolute", left: "35px", top: "10px" }}>{retweets}</p>
+            <div onClick={handleRetweet} style={retweetAnimation || isRetweeted ? { color: "#479489", position: "relative" } : { color: "black", position: "relative" }}>
+                <StyledIcon icon={repeat} />
+                <p style={{ position: "absolute", left: "35px", top: "10px" }}>{retweets}</p>
             </div>
             <div style={{ position: "relative", cursor: "pointer" }}>
 
                 <Foreground onClick={handleLike}>
-                    { 
+                    {
                         likeAnimation && isLiked ?
-                        (          
-                            <SpringyHeart>
-                                <StyledHeart style={{fill: "red", stroke: "red"}} 
-                                        />
-                            </SpringyHeart>         
-                        )
-                        :
-                        (
-                            <StyledHeart  style={isLiked ? {fill:"red", stroke: "red"} : {fill:"white"}} /> 
-                        )
+                            (
+                                <SpringyHeart>
+                                    <StyledHeart style={{ fill: "red", stroke: "red" }}
+                                    />
+                                </SpringyHeart>
+                            )
+                            :
+                            (
+                                <StyledHeart style={isLiked ? { fill: "red", stroke: "red" } : { fill: "white" }} />
+                            )
 
-                    }        
-                    
+                    }
+
                 </Foreground>
 
                 <Background>
                     {/* {likeAnimation && <PoppingCircle />} */}
 
-                    <p  style={{ position: "absolute", left: "35px", top: "10px" }}>{likes}</p>
+                    <p style={{ position: "absolute", left: "35px", top: "10px" }}>{likes}</p>
                 </Background>
 
             </div>
