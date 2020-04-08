@@ -7,26 +7,27 @@ import { home } from 'react-icons-kit/feather/home';
 import { user } from 'react-icons-kit/feather/user';
 import { bell } from 'react-icons-kit/feather/bell';
 import { bookmark } from 'react-icons-kit/feather/bookmark';
-import COLORS from "../constants"
 import { NavLink } from "./NavLink";
-import { CurrentUserContext, CurrentUserProvider } from "./CurrentUserContext"
+import { Link } from "@reach/router";
 
 
 
-const Sidebar = (props) => {
+const Sidebar = () => {
 
-    const { currentUser, status } = React.useContext(CurrentUserContext);
 
     return (
 
 
         <SidebarContainer>
-            <StyledLogo />
+            <Link to="/">
+             <StyledLogo />
+            </Link>
+            
             <ul>
                 <StyledLink to="/"><li><StyledIcon icon={home} />Home</li></StyledLink>
                 <StyledLink to="/my-profile"><li> <StyledIcon icon={user} />Profile</li></StyledLink>
-                <StyledLink to="/notifications"><li><StyledIcon icon={bell} />Notifications</li></StyledLink>
-                <StyledLink to="/bookmarks"><li><StyledIcon icon={bookmark} />Bookmarks</li></StyledLink>
+                <StyledLink to="/stretchgoal"><li><StyledIcon icon={bell} />Notifications</li></StyledLink>
+                <StyledLink to="/stretchgoal"><li><StyledIcon icon={bookmark} />Bookmarks</li></StyledLink>
             </ul>
         </SidebarContainer>
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { Router } from "@reach/router"
 import Bookmarks from "./Bookmarks"
 import HomeFeed from './HomeFeed';
-import Notifications from './Notifications';
 import ProfilePage from './ProfilePage';
 import UserProfilePage from "./UserProfilePage"
 import { CurrentUserContext } from './CurrentUserContext';
@@ -12,6 +11,8 @@ import Sidebar from "./Sidebar"
 import { ContentContainer, PageContainer } from "./GlobalStyles"
 import { StyledMoonLoader } from "./GlobalStyles"
 import Error from "./Error"
+import StretchGoal from './StretchGoalPage';
+import ProfilePageNew from './ProfilePageNew';
 
 
 
@@ -38,10 +39,10 @@ function App({ setUpdateFeed }) {
             <ContentContainer>
               <Router>
                 <HomeFeed path="/" />
-                <Notifications path="/notifications" />
+                <StretchGoal path="/stretchgoal" />
                 <Bookmarks path="/bookmarks" />
                 <TweetDetailsPage path="/tweet/:tweetId" />
-                <ProfilePage path="/my-profile" />
+                <ProfilePageNew path="/my-profile" />
                 <UserProfilePage path="/users/:handle" />
                 <Error default />
               </Router>

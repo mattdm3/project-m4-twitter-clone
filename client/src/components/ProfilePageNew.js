@@ -7,6 +7,7 @@ import TweetPoster from "./TweetPoster"
 import { Icon } from 'react-icons-kit';
 import { repeat } from 'react-icons-kit/feather/repeat'
 import { format } from 'date-fns'
+import ProfileInfo from './ProfileInfo'
 
 const StyledIcon = styled(Icon)`
     margin-right: 10px; 
@@ -14,10 +15,14 @@ const StyledIcon = styled(Icon)`
 
 
 
-const HomeFeed = () => {
+const ProfilePageNew = () => {
 
     // const { currentUser, status } = React.useContext(CurrentUserContext);
-    const { feed, feedStatus, setUpdateFeed, updateFeed } = React.useContext(AllUserContext);
+    const {  feed, feedStatus, setUpdateFeed, updateFeed } = React.useContext(AllUserContext);
+
+
+    const {currentUser} = React.useContext(CurrentUserContext);
+
 
 
 
@@ -31,9 +36,19 @@ const HomeFeed = () => {
 
     return (
         <>
-            <TweetPoster
-            /* setUpdateFeed={setUpdateFeedTrigger} */
+        <ProfileInfo
+                handle={currentUser.profile.handle}
+                displayName={currentUser.profile.displayName}
+                //followInfo={"follows you"} //ADD TERNARY
+                avatarImg={currentUser.profile.avatarSrc}
+                headerImg={currentUser.profile.bannerSrc}
+                description={currentUser.profile.bio}
+                numFollowers={currentUser.profile.numFollowers}
+                numFollowing={currentUser.profile.numFollowing}
+                location={currentUser.profile.location}
+                joinDate={format(new Date(currentUser.profile.joined), "PPP")}
             />
+            
             {feed.tweetIds.map((tweetId) => {
                 return (
                     <div key={tweetId}>
@@ -103,4 +118,4 @@ const HomeFeed = () => {
 
 
 
-export default HomeFeed;
+export default ProfilePageNew;

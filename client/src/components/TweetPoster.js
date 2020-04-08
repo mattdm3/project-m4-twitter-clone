@@ -28,8 +28,10 @@ const TweetPoster = () => {
         if(tweetText.length > 0 && tweetText.length <  280) {
             handleTweetSubmit(); 
             setPlaceHolder("What's Happening?")
-        } else {
+        } else if(tweetText.lenght < 280){
             setTweetStatus("too-long");
+        } else if(tweetText.length === 0) {
+            setPlaceHolder("Can't Meow Without Saying Something")
         }
     }
 

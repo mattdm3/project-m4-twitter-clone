@@ -8,6 +8,7 @@ import { share } from 'react-icons-kit/feather/share'
 // import { heart } from 'react-icons-kit/ionicons/heart'
 import { useSpring, animated } from 'react-spring'
 import { AllUserContext } from "./AllUserContext"
+import {CurrentUserContext} from './CurrentUserContext'
 import HeartSVG from "./HeartSVG"
 import { FiHeart, FiBluetooth } from "react-icons/fi";
 
@@ -18,17 +19,27 @@ const TweetActions = ({ triggerFetch, isLiked, tweetId, retweets, likes, isRetwe
 
     const [retweetAnimation, setRetweetAnimation] = React.useState(false);
 
-    // const { setUpdateFeed, updateFeed } = React.useContext(AllUserContext);
+    const { setUpdateFeed, updateFeed } = React.useContext(AllUserContext);
+
+    const {setUpdateCurrentUserFeed, updateCurrentUserFeed } = React.useContext(CurrentUserContext)
 
 
+    const reRenderOnLike = () => {
+
+        if (updateFeed) {
+            setUpdateFeed(false)
+        } else setUpdateFeed(true);
+
+       
+
+        // (likeAnimation ? setLikeAnimation(false) : setLikeAnimation(true));
+
+    }
 
     // const reRenderFeed = () => {
-
-    //     if (updateFeed) {
-    //         setUpdateFeed(false)
-    //     } else setUpdateFeed(true);
-
-    //     // (likeAnimation ? setLikeAnimation(false) : setLikeAnimation(true));
+    //     if (updateCurrentUserFeed) {
+    //         setUpdateCurrentUserFeed(false)
+    //     } else setUpdateCurrentUserFeed(true);
 
     // }
 
@@ -50,7 +61,8 @@ const TweetActions = ({ triggerFetch, isLiked, tweetId, retweets, likes, isRetwe
             })
                 .then(response => {
                     setLikeAnimation(false);
-                    // reRenderFeed();
+                    // reRenderOnLike();
+                    
 
 
                 })
@@ -68,8 +80,9 @@ const TweetActions = ({ triggerFetch, isLiked, tweetId, retweets, likes, isRetwe
                 })
             })
                 .then(response => {
-                    // reRenderFeed();
+                    // reRenderOnLike();
                     setLikeAnimation(true);
+                    
                 })
                 .catch(err => {
                     console.log(err);
@@ -84,7 +97,7 @@ const TweetActions = ({ triggerFetch, isLiked, tweetId, retweets, likes, isRetwe
     }
 
 
-    const handleRetweet = () => {
+    const handleRetweet = (e) => {
 
         triggerFetch();
 
@@ -101,7 +114,8 @@ const TweetActions = ({ triggerFetch, isLiked, tweetId, retweets, likes, isRetwe
             })
                 .then(response => {
                     setRetweetAnimation(false);
-                    // reRenderFeed();
+                    
+                    
 
 
                 })
@@ -119,8 +133,10 @@ const TweetActions = ({ triggerFetch, isLiked, tweetId, retweets, likes, isRetwe
                 })
             })
                 .then(response => {
-                    // reRenderFeed();
+                    
                     setRetweetAnimation(true);
+                    
+                    
                 })
                 .catch(err => {
                     console.log(err);
@@ -135,8 +151,16 @@ const TweetActions = ({ triggerFetch, isLiked, tweetId, retweets, likes, isRetwe
         <StyledActions>
             <StyledIcon icon={messageCircle} />
             <div onClick={handleRetweet} style={retweetAnimation || isRetweeted ? { color: "#479489", position: "relative" } : { color: "black", position: "relative" }}>
-                <StyledIcon icon={repeat} />
-                <p style={{ position: "absolute", left: "35px", top: "10px" }}>{retweets}</p>
+
+                <Foreground>
+
+                    <StyledIcon icon={repeat} />
+
+                    <p style={{ position: "absolute", left: "35px", top: "10px" }}>{retweets}</p>
+
+                </Foreground>
+
+
             </div>
             <div style={{ position: "relative", cursor: "pointer" }}>
 

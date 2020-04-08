@@ -29,7 +29,7 @@ const TweetDetailsPage = ({ tweetId }) => {
             .then(res => res.json())
             .then(data => {
                 setThisTweet(data);
-                console.log(data)
+                // console.log(data)
             })
 
             .catch(err => {

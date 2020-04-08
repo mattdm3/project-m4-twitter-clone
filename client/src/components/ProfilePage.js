@@ -9,31 +9,137 @@ import { StyledMoonLoader } from "./GlobalStyles"
 
 const Profile = () => {
 
-    const { currentUser, status } = React.useContext(CurrentUserContext);
-    const [thisUserTweets, setThisUserTweets] = React.useState(null);
+    
 
-    const [triggerFetch, setTriggerFetch] = React.useState("idle")
+    // React.useEffect(() => {
+    //     fetch("/api/me/profile", {
+    //         "method": "GET",
+    //         "headers": {}
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log(data);
+    //             setCurrentUser(data);
+    //             // setStatus("idle");
+    //             loadUserFeed();
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //             if(err){
+    //                 // window.location.href = "/error"
+    //                 console.log("error")
+    //                 // (triggerFetch) ? setTriggerFetch(false) : setTriggerFetch(true)
+                    
+    //             }
+    //         });
+    // }, [triggerFetch])
 
-    React.useEffect(() => {
-        fetch(`/api/${currentUser.profile.handle}/feed`, {
-            "method": "GET",
-            "headers": {}
-        })
-            .then(res => res.json())
-            .then(data => {
-                setThisUserTweets(data);
-                // console.log(data)
-            })
-            .catch(err => {
-                console.log(err);
-                // if (err) {
-                //     window.location.href = "/error"
-                // }
-            });
-    }, [triggerFetch])
+
+  
+
+    // const loadUserFeed = () => {
+
+    //     if(currentUser != null) {
+    //         fetch(`/api/${currentUser.profile.handle}/feed`, {
+    //             "method": "GET",
+    //             "headers": {}
+    //         })
+    //             .then(res => res.json())
+    //             .then(data => {
+    //                 setThisUserTweets(data);
+    //                 console.log(data)
+    //             })
+    //             .catch(err => {
+    //                 console.log(err);
+    //                 if (err) {
+    //                     // window.location.href = "/error"
+    //                     console.log("there was a problem");
+    //                     (triggerFetch) ? setTriggerFetch(false) : setTriggerFetch(true)
+
+    //                 }
+    //             });
+        
+    //     }
+    //     else {(triggerFetch) ? setTriggerFetch(false) : setTriggerFetch(true)}; 
+
+        
+    // }
+
+   
+       
+    
+    
+    // React.useEffect(() => {
+
+    //     // console.log(currentUser)
+    //     if(currentUser != null) {
+    //         fetch(`/api/${currentUser.profile.handle}/feed`, {
+    //             "method": "GET",
+    //             "headers": {}
+    //         })
+    //             .then(res => res.json())
+    //             .then(data => {
+    //                 setThisUserTweets(data);
+    //                 // console.log(data)
+    //             })
+    //             .catch(err => {
+    //                 console.log(err);
+    //                 if (err) {
+    //                     // window.location.href = "/error"
+    //                     console.log("there was a problem")
+    //                 }
+    //             });
+        
+    //     }
+    //     else {console.log("not loading")}; 
+
+
+        
+    // }, [triggerFetch, currentUser])
+
+
+     //this gets current user profile info 
+     const { currentUser, userTweets, setUpdateCurrentUserFeed, updateCurrentUserFeed} = React.useContext(CurrentUserContext);
+
+     // const [currentUser, setCurrentUser] = React.useState(null);
+    //  const [thisUserTweets, setThisUserTweets] = React.useState(null);
+ 
+    //  const [triggerFetch, setTriggerFetch] = React.useState(false)
+     console.log(currentUser);
+ 
+ 
+
+    //  const setUpdateFeedTrigger = () => {
+    //     //  setTimeout(()=> {
+    //         if (updateCurrentUserFeed === true) {
+    //             setUpdateCurrentUserFeed(false)
+    //         } else setUpdateCurrentUserFeed(true);
+
+    //     //  }, 500)
+
+        
+
+    //  }
+
+     const { feed, feedStatus, setUpdateFeed, updateFeed } = React.useContext(AllUserContext);
+
+
+
+
+    const setUpdateFeedTrigger = () => {
+        if (updateFeed === true) {
+            setUpdateFeed(false)
+        } else setUpdateFeed(true);
+
+    }
+
+
+
+     
 
     return (
         <>
+        {(currentUser !== null) &&
             <ProfileInfo
                 handle={currentUser.profile.handle}
                 displayName={currentUser.profile.displayName}
@@ -45,36 +151,47 @@ const Profile = () => {
                 numFollowing={currentUser.profile.numFollowing}
                 location={currentUser.profile.location}
                 joinDate={format(new Date(currentUser.profile.joined), "PPP")}
-            />
+            />}
             {
-                (thisUserTweets === null)
+                (userTweets === null)
                     ?
                     (<StyledMoonLoader />)
                     :
                     (
-                        thisUserTweets.tweetIds.map((tweetId) => {
+                        userTweets.tweetIds.map((tweetId) => {
+                            
                             return (
                                 <div key={tweetId}>
                                     <Tweet
-                                        triggerFetch={() => (triggerFetch) ? setTriggerFetch(false) : setTriggerFetch(true)}
-                                        isLiked={thisUserTweets.tweetsById[tweetId].isLiked}
+                                        triggerFetch={setUpdateFeedTrigger} 
+                                        isRetweeted={userTweets.tweetsById[tweetId].isRetweeted}
+                                        isLiked={userTweets.tweetsById[tweetId].isLiked}
                                         likes={
-                                            (thisUserTweets.tweetsById[tweetId].numLikes > 0)
+                                            (userTweets.tweetsById[tweetId].numLikes > 0)
                                                 ?
-                                                `${thisUserTweets.tweetsById[tweetId].numLikes}`
+                                                `${userTweets.tweetsById[tweetId].numLikes}`
                                                 :
                                                 ""
                                         }
                                         tweetId={tweetId}
-                                        profileImg={thisUserTweets.tweetsById[tweetId].author.avatarSrc}
-                                        displayName={thisUserTweets.tweetsById[tweetId].author.displayName}
-                                        handle={thisUserTweets.tweetsById[tweetId].author.handle}
-                                        timestamp={format(new Date(thisUserTweets.tweetsById[tweetId].timestamp), "LLL " + "do")}
-                                        tweetContent={thisUserTweets.tweetsById[tweetId].status}
+                                        profileImg={userTweets.tweetsById[tweetId].author.avatarSrc}
+                                        displayName={userTweets.tweetsById[tweetId].author.displayName}
+                                        handle={userTweets.tweetsById[tweetId].author.handle}
+                                        timestamp={format(new Date(userTweets.tweetsById[tweetId].timestamp), "LLL " + "do")}
+                                        tweetContent={userTweets.tweetsById[tweetId].status}
+                                        retweets ={
+                                            (userTweets.tweetsById[tweetId].numRetweets > 0) 
+                                            ? 
+                                                `${(userTweets.tweetsById[tweetId].numRetweets)}`
+                                            :
+                                            ""
+
+
+                                        }
                                         imgSource={
-                                            (thisUserTweets.tweetsById[tweetId].media.length > 0)
+                                            (userTweets.tweetsById[tweetId].media.length > 0)
                                                 ?
-                                                `${thisUserTweets.tweetsById[tweetId].media[0].url}`
+                                                `${userTweets.tweetsById[tweetId].media[0].url}`
                                                 :
                                                 ""
                                         }

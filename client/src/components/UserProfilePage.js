@@ -10,7 +10,7 @@ import { format } from 'date-fns'
 
 const UserProfile = ({ handle }) => {
 
-    const { feed, feedStatus } = React.useContext(AllUserContext);
+    // const { feed, feedStatus } = React.useContext(AllUserContext);
     const [userTweets, setUserTweets] = React.useState(null);
     const [userProfile, setUserProfile] = React.useState(null);
 

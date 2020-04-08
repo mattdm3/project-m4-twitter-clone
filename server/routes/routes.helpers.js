@@ -3,15 +3,15 @@ const data = require('../data');
 // HARDCODED CURRENT USER.
 const CURRENT_USER_HANDLE = 'treasurymog';
 
-const MAX_DELAY = 2000;
-const FAILURE_ODDS = 0.05;
+const MAX_DELAY = 1000;
+const FAILURE_ODDS = 0.000;
 
 // Our server is very lean and quick, given that it doens't actually connect
 // to a database or deal with any sort of scale!
 // We want to provide a more realistic experience, so we'll do 2 things for
 // all responses:
-// - Add an arbitrary delay of 0-2 seconds
-// - Add a 5% chance of a 500 error
+// - Add an arbitrary delay of 0-1 seconds
+// - Add a .01% chance of a 500 error
 const simulateProblems = (res, data) => {
   const delay = Math.random() * MAX_DELAY;
 

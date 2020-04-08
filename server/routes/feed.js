@@ -46,6 +46,17 @@ router.get('/api/me/home-feed', (req, res) => {
   });
 });
 
+router.get('/api/me/myfeed', (req, res) => {
+  const tweets = getTweetsFromUser(CURRENT_USER_HANDLE);
+
+  const { tweetsById, tweetIds } = formatTweetResponse(tweets);
+
+  return simulateProblems(res, {
+    tweetsById,
+    tweetIds,
+  });
+});
+
 router.get('/api/:handle/feed', (req, res) => {
   const { handle } = req.params;
 
@@ -58,5 +69,7 @@ router.get('/api/:handle/feed', (req, res) => {
     tweetIds,
   });
 });
+
+
 
 module.exports = router;
