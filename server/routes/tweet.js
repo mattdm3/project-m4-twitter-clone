@@ -16,7 +16,7 @@ const {
 } = require('./routes.helpers.js');
 
 const createTweet = (status, { isRetweet }) => {
-  const newTweetId = Math.random() * 10 ** 18;
+  const newTweetId = (Math.random() * 10 ** 18).toString();
   const timestamp = new Date().toISOString();
 
   let sharedTweetBasics = {
