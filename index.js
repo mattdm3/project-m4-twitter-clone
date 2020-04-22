@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 
-const PORT = 31415;
+const PORT = process.env.PORT || 31415;
 
 var app = express();
 
@@ -13,6 +13,14 @@ app.use(require('./routes/feed'));
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-const server = app.listen(PORT, function() {
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+const server = app.listen(PORT, function () {
   console.info('🌍 Listening on port ' + server.address().port);
 });
