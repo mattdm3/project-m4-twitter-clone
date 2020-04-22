@@ -1,20 +1,21 @@
 import React from 'react'
 import styled from 'styled-components'
 import { GoAlert } from "react-icons/go";
-import {Link} from "@reach/router"
+import { Link } from "@reach/router"
+import { FaRobot } from 'react-icons/fa'
 
 
 
 const Error = () => {
-    return(
+    return (
         <Container>
             <StyledIcon>
-                <GoAlert />
+                <FaRobot />
             </StyledIcon>
-            <h2>Something is broken.</h2>
+            <h2>This is embarassing.</h2>
             <p>Try going <Link to='/'>home.</Link> </p>
         </Container>
-       
+
     )
 
 }
@@ -24,6 +25,10 @@ const Container = styled.div`
     flex-direction: column; 
     height: 100vh; 
     margin: 50% 50%; 
+    /* margin: auto;  */
+    /* top: 50%; 
+    left: 50%;  */
+    /* transform: translate(-50%, -50%); */
     align-items: center;
     width: 100%; 
     h2{
@@ -35,11 +40,9 @@ const Container = styled.div`
 
 `
 
-const StyledIcon = styled(GoAlert)`
-
-    width: 400px; 
-    height: 200px; 
-
+const StyledIcon = styled(FaRobot)`
+    width: 100px; 
+    height: 100px; 
 `
 
 export default Error

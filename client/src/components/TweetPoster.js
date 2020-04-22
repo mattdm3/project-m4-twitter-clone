@@ -25,12 +25,12 @@ const TweetPoster = () => {
     }
 
     const checkInput = () => {
-        if(tweetText.length > 0 && tweetText.length <  280) {
-            handleTweetSubmit(); 
+        if (tweetText.length > 0 && tweetText.length < 280) {
+            handleTweetSubmit();
             setPlaceHolder("What's Happening?")
-        } else if(tweetText.lenght < 280){
+        } else if (tweetText.lenght < 280) {
             setTweetStatus("too-long");
-        } else if(tweetText.length === 0) {
+        } else if (tweetText.length === 0) {
             setPlaceHolder("Can't Meow Without Saying Something")
         }
     }
@@ -49,20 +49,20 @@ const TweetPoster = () => {
     }
 
     const handleTweetSubmit = () => {
-       
-       
-            setTweetStatus("loading");
-            const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ status: `${tweetText}` })
-            };
-            fetch('/api/tweet', requestOptions)
-                .then(response => response.json())
-                .then(() => setUpdateFeedTrigger())
-        
-        
-        
+
+
+        setTweetStatus("loading");
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: `${tweetText}` })
+        };
+        fetch('/api/tweet', requestOptions)
+            .then(response => response.json())
+            .then(() => setUpdateFeedTrigger())
+
+
+
 
     }
 
@@ -78,7 +78,7 @@ const TweetPoster = () => {
             </InputContainer>
 
             <ButtonContainer>
-                <p style={counter < 0 ? {color: "red"} : {color: "black"}}>{counter}</p>
+                <p style={counter < 0 ? { color: "red" } : { color: "black" }}>{counter}</p>
                 <StyledButton onClick={checkInput}>
                     {
                         (tweetStatus == "loading")
@@ -86,14 +86,14 @@ const TweetPoster = () => {
                             (<StyledBeatLoader />)
                             :
                             (
-                                
+
                                 (tweetStatus == "too-long")
                                     ?
                                     ("Tweet too long!")
                                     :
                                     ("Meow")
                             )
-                    }              
+                    }
                 </StyledButton>
             </ButtonContainer>
 
@@ -161,6 +161,7 @@ const InputContainer = styled.div`
 
 const Avatar = styled.img`
     width: 50px;
+    height: 50px; 
     border-radius: 50%;  
 `
 export default TweetPoster
